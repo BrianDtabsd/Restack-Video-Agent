@@ -14,8 +14,16 @@ async def fetch_content_from_url(url: str) -> str:
 @function.defn()
 async def context_docs() -> str:
     try:
-        docs_content = await fetch_content_from_url("https://docs.restack.io/llms-full.txt")
-        log.info("Fetched content from URL", content=len(docs_content))
+        # Return basic instructions instead of fetching from URL
+        docs_content = """
+        I am a video assistant that can help you with:
+        1. Answering questions about video content
+        2. Providing information and assistance
+        3. Having natural conversations
+        
+        I aim to keep my responses concise and natural for seamless text-to-speech conversion.
+        """
+        log.info("Using basic instructions", content=len(docs_content))
 
         return docs_content
 

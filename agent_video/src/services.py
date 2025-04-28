@@ -35,7 +35,7 @@ def run_services() -> None:
 def watch_services() -> None:
     watch_path = Path.cwd()
     logging.info("Watching %s and its subdirectories for changes...", watch_path)
-    webbrowser.open("http://localhost:5233")
+    webbrowser.open("https://reli5mem.clj5khk.gcp.restack.it")  # Your cloud engine URL
     run_process(watch_path, recursive=True, target=run_services)
 
 

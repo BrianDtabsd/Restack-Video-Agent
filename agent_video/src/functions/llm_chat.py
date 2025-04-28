@@ -27,7 +27,7 @@ class LlmChatInput(BaseModel):
 async def llm_chat(function_input: LlmChatInput) -> str:
     try:
         client = OpenAI(
-            base_url="https://ai.restack.io", api_key=os.environ.get("RESTACK_API_KEY")
+            api_key=os.getenv("OPENAI_API_KEY"),  # Use OpenAI API key
         )
 
         if function_input.system_content:
@@ -38,9 +38,9 @@ async def llm_chat(function_input: LlmChatInput) -> str:
 
         # Convert Message objects to dictionaries
         messages_dicts = [message.model_dump() for message in function_input.messages]
-        # Get the streamed response from OpenAI API
+        # Get the streamed response from OpenAI
         response: Stream[ChatCompletionChunk] = client.chat.completions.create(
-            model=function_input.model or "gpt-4o-mini",
+            model=function_input.model or "gpt-4",  # Using GPT-4 as default
             messages=messages_dicts,
             stream=True,
         )

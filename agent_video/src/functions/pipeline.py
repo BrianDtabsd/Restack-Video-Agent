@@ -36,16 +36,11 @@ class PipecatPipelineInput(BaseModel):
 async def pipecat_pipeline(function_input: PipecatPipelineInput) -> str:
     try:
         async with aiohttp.ClientSession() as session:
-            engine_api_address = os.environ.get("RESTACK_ENGINE_API_ADDRESS")
-            if not engine_api_address:
-                agent_backend_host = "http://localhost:9233"
-            elif not engine_api_address.startswith("https://"):
-                agent_backend_host = "https://" + engine_api_address
-            else:
-                agent_backend_host = engine_api_address
+            # Use environment variables for the agent backend host
+            agent_backend_host = os.getenv("RESTACK_ENGINE_API_ADDRESS", "https://reli5mem.clj5khk.gcp.restack.it")
 
             log.info(
-                "Using RESTACK_ENGINE_API_ADDRESS",
+                "Using engine address",
                 agent_backend_host=agent_backend_host,
             )
 
